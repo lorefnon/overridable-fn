@@ -1,6 +1,6 @@
 {
   "name": "overridable-fn",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple utility to define functions whose behavior can be overriden at runtime",
   "author": "Lorefnon <lorefnon@tutanota.com> (https://lorefnon.me)",
   "main": "index.js",
@@ -13,8 +13,8 @@
     "README.md"
   ],
   "exports": {
-    "import": "./dist/index.mjs",
-    "require": "./dist/index.js"
+    "import": "./dist/index.js",
+    "require": "./dist/index.cjs"
   },
   "type": "module",
   "license": "MIT",
