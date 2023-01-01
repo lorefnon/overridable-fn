@@ -7,7 +7,9 @@ interface WrappedFnImpl<TArgs extends any[], TRet> {
     unwrap: () => FnImpl<TArgs, TRet>;
     override: (
         provideImpl: (curImpl: FnImpl<TArgs, TRet>) => FnImpl<TArgs, TRet>
-    ) => WrappedFnImpl<TArgs, TRet>;
+    ) => {
+        restore: () => void
+    }
 }
 
 export const fn = <TArgs extends any[], TRet>(
@@ -20,13 +22,18 @@ export const fn = <TArgs extends any[], TRet>(
     const override = (
         provideImpl: (curImpl: FnImpl<TArgs, TRet>) => FnImpl<TArgs, TRet>
     ) => {
-        impl = provideImpl(impl);
-        return invoker;
+        const curImpl = impl
+        impl = provideImpl(curImpl);
+        const restore = () => {
+            impl = curImpl
+        }
+        return { restore }
     };
 
     const invoker: WrappedFnImpl<TArgs, TRet> = (...args) => {
         return impl(...args);
     };
+
     invoker.unwrap = unwrap;
     invoker.override = override;
 
