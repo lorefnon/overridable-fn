@@ -1,8 +1,8 @@
-interface FnImpl<TArgs extends any[], TRet> {
+export interface FnImpl<TArgs extends any[], TRet> {
     (...args: TArgs): TRet;
 }
 
-interface WrappedFnImpl<TArgs extends any[], TRet> {
+export interface WrappedFnImpl<TArgs extends any[], TRet> {
     (...args: TArgs): TRet;
     unwrap: () => FnImpl<TArgs, TRet>;
     override: (
