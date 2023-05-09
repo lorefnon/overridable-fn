@@ -1,3 +1,6 @@
+import assign from "lodash.assign";
+import memoize from "lodash.memoize";
+
 export interface FnImpl<TArgs extends any[], TRet> {
     (...args: TArgs): TRet;
 }
@@ -12,7 +15,7 @@ export interface WrappedFnImpl<TArgs extends any[], TRet> {
     }
 }
 
-export const fn = <TArgs extends any[], TRet>(
+const _fn = <TArgs extends any[], TRet>(
     defaultImpl: FnImpl<TArgs, TRet>
 ): WrappedFnImpl<TArgs, TRet> => {
     let impl = defaultImpl;
@@ -39,3 +42,18 @@ export const fn = <TArgs extends any[], TRet>(
 
     return invoker;
 };
+
+
+export const fn = assign(_fn, {
+    memo: <TArgs extends any[], TRet>(defaultImpl: FnImpl<TArgs, TRet>) => {
+        const memoized = memoize(defaultImpl) 
+        return assign(fn(memoized), {
+            get cache() {
+                return memoized.cache;
+            },
+            set cache(cache: typeof memoized.cache) {
+                memoized.cache = cache;
+            }
+        })
+    }
+})
