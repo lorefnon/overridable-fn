@@ -1,6 +1,6 @@
 {
   "name": "overridable-fn",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Simple utility to define functions whose behavior can be overriden at runtime",
   "author": "Lorefnon <lorefnon@tuta.com> (https://lorefnon.me)",
   "main": "./dist/index.js",
