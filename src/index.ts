@@ -16,6 +16,10 @@ export interface WrappedFnImpl<TArgs extends any[], TRet> {
     }
 }
 
+export interface MemoizedWrappedFnImpl<TArgs extends any[], TRet> extends WrappedFnImpl<TArgs, TRet> {
+    cache: MapCache
+}
+
 const _fn = <TArgs extends any[], TRet>(
     defaultImpl: FnImpl<TArgs, TRet>
 ): WrappedFnImpl<TArgs, TRet> => {
@@ -46,7 +50,7 @@ const _fn = <TArgs extends any[], TRet>(
 
 
 export const fn = assign(_fn, {
-    memo: <TArgs extends any[], TRet>(defaultImpl: FnImpl<TArgs, TRet>) => {
+    memo: <TArgs extends any[], TRet>(defaultImpl: FnImpl<TArgs, TRet>): MemoizedWrappedFnImpl<TArgs, TRet> => {
         const memoized = memoize(defaultImpl) 
         return assign(fn(memoized), {
             get cache() {
