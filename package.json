@@ -1,12 +1,12 @@
 {
   "name": "overridable-fn",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Simple utility to define functions whose behavior can be overriden at runtime",
   "author": "Lorefnon <lorefnon@tuta.com> (https://lorefnon.me)",
   "main": "./dist/index.js",
   "scripts": {
     "build": "tsup",
-    "test": "ts-node ./test/index.test.ts"
+    "test": "npx tsx ./test/index.test.ts"
   },
   "types": "./dist/index.d.ts",
   "files": [
@@ -20,16 +20,16 @@
   "type": "module",
   "license": "MIT",
   "devDependencies": {
+    "@types/lodash.assign": "^4.2.9",
+    "@types/lodash.memoize": "^4.1.9",
+    "@types/node": "^22.7.9",
     "lodash.assign": "^4.2.0",
     "lodash.memoize": "^4.1.2",
-    "@types/lodash.assign": "^4.2.7",
-    "@types/lodash.memoize": "^4.1.7",
-    "@types/node": "^18.11.12",
-    "ts-node": "^10.9.1",
-    "tsup": "^6.5.0",
-    "typescript": "^4.9.4"
+    "tsup": "^8.3.0",
+    "tsx": "^4.19.1",
+    "typescript": "^5.6.3"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.194"
+    "@types/lodash": "^4.17.12"
   }
 }

@@ -1,3 +1,4 @@
+import type { MapCache } from "lodash";
 import assign from "lodash.assign";
 import memoize from "lodash.memoize";
 
@@ -51,7 +52,7 @@ export const fn = assign(_fn, {
             get cache() {
                 return memoized.cache;
             },
-            set cache(cache: typeof memoized.cache) {
+            set cache(cache: MapCache) {
                 memoized.cache = cache;
             }
         })
