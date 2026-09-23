@@ -5,7 +5,7 @@
   "author": "Lorefnon <lorefnon@tuta.com> (https://lorefnon.me)",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "tsup",
+    "build": "tsc -p tsconfig.build.json",
     "test": "npx tsx ./test/index.test.ts"
   },
   "types": "./dist/index.d.ts",
@@ -14,22 +14,20 @@
     "README.md"
   ],
   "exports": {
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
+    "import": "./dist/index.js"
   },
   "type": "module",
   "license": "MIT",
   "devDependencies": {
     "@types/lodash.assign": "^4.2.9",
     "@types/lodash.memoize": "^4.1.9",
-    "@types/node": "^22.7.9",
+    "@types/node": "^26.6.2",
     "lodash.assign": "^4.2.0",
     "lodash.memoize": "^4.1.2",
-    "tsup": "^8.3.0",
-    "tsx": "^4.19.1",
-    "typescript": "^5.6.3"
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
   },
   "dependencies": {
-    "@types/lodash": "^4.17.12"
+    "@types/lodash": "^4.17.25"
   }
 }
