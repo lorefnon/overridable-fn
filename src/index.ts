@@ -1,6 +1,28 @@
-import type { MapCache } from "lodash";
-import assign from "lodash.assign";
-import memoize from "lodash.memoize";
+export interface MapCache {
+    delete(key: any): boolean;
+    get(key: any): any;
+    has(key: any): boolean;
+    set(key: any, value: any): this;
+    clear?(): void;
+}
+
+// Equivalent of lodash.memoize: caches by first argument
+const memoize = <TArgs extends any[], TRet>(
+    f: (...args: TArgs) => TRet
+): ((...args: TArgs) => TRet) & { cache: MapCache } => {
+    const memoized = function (this: any, ...args: TArgs): TRet {
+        const key = args[0];
+        const cache = memoized.cache;
+        if (cache.has(key)) return cache.get(key);
+        const result = f.apply(this, args);
+        memoized.cache = cache.set(key, result) || cache;
+        return result;
+    } as ((...args: TArgs) => TRet) & { cache: MapCache };
+    memoized.cache = new Map();
+    return memoized;
+};
+
+const assign = Object.assign;
 
 export interface FnImpl<TArgs extends any[], TRet> {
     (...args: TArgs): TRet;

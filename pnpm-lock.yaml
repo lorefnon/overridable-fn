@@ -7,26 +7,10 @@ settings:
 importers:
 
   .:
-    dependencies:
-      '@types/lodash':
-        specifier: ^4.17.25
-        version: 4.17.25
     devDependencies:
-      '@types/lodash.assign':
-        specifier: ^4.2.9
-        version: 4.2.9
-      '@types/lodash.memoize':
-        specifier: ^4.1.9
-        version: 4.1.9
       '@types/node':
-        specifier: ^26.6.2
-        version: 26.6.2
-      lodash.assign:
-        specifier: ^4.2.0
-        version: 4.2.0
-      lodash.memoize:
-        specifier: ^4.1.2
-        version: 4.1.2
+        specifier: ^26.6.6
+        version: 26.6.6
       tsx:
         specifier: ^4.23.15
         version: 4.23.15
@@ -192,17 +176,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@types/lodash.assign@4.2.9':
-    resolution: {integrity: sha512-3l+BitwbEV9O1Q2KcwGHsG3KFNHInLcYMvVhHTP0fBLmpmZMYjh4q5A/J8UygfdtZXr8wRIMgUydFIy5ysGRcA==}
-
-  '@types/lodash.memoize@4.1.9':
-    resolution: {integrity: sha512-glY1nQuoqX4Ft8Uk+KfJudOD7DQbbEDF6k9XpGncaohW3RW4eSWBlx6AA0fZCrh40tZcQNH4jS/Oc59J6Eq+aw==}
-
-  '@types/lodash@4.17.25':
-    resolution: {integrity: sha512-+K1NIO8I+F9/wNulfVvu23QYd0Pe9/OCqRrim4NoYIf1VoEDL90Ve4ClzpyqBLc7NpGGWRvYNCKZ1BE/Jpf8dQ==}
-
-  '@types/node@26.6.2':
-    resolution: {integrity: sha512-X1P21scMv4zGKLYqjdGjaKa7COa0RKVYYZZN/NfvLQ1JegxFhdhpZG/Lyn8AXx6CDUavKAd11v6BvfpkDByK8g==}
+  '@types/node@26.6.6':
+    resolution: {integrity: sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==}
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
@@ -334,12 +309,6 @@ packages:
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
 
-  lodash.assign@4.2.0:
-    resolution: {integrity: sha512-hFuH8TY+Yji7Eja3mGiuAxBqLagejScbG8GbG0j6o9vzn0YL14My+ktnqtZgFTosKymC9/44wP6s7xyuLfnClw==}
-
-  lodash.memoize@4.1.2:
-    resolution: {integrity: sha512-t7j+NzmgnQzTAYXcsHYLgimltOV1MXHtlOWf6GjL9Kj8GK5FInw5JotxvbOs+IvV1/Dzo04/fCGfLVs7aXb4Ag==}
-
   tsx@4.23.15:
     resolution: {integrity: sha512-Yiex1Ovn8z2xPpOWckIiysV1SSyRMY9BkLF++q0yKiDxCqRhosKfMg3janKkiLBwZ5c/YryloKwGZcrEmtwxKw==}
     engines: {node: '>=18.0.0'}
@@ -433,17 +402,7 @@ snapshots:
   '@esbuild/win32-x64@0.28.2':
     optional: true
 
-  '@types/lodash.assign@4.2.9':
-    dependencies:
-      '@types/lodash': 4.17.25
-
-  '@types/lodash.memoize@4.1.9':
-    dependencies:
-      '@types/lodash': 4.17.25
-
-  '@types/lodash@4.17.25': {}
-
-  '@types/node@26.6.2':
+  '@types/node@26.6.6':
     dependencies:
       undici-types: 8.9.0
 
@@ -538,10 +497,6 @@ snapshots:
 
   fsevents@2.3.3:
     optional: true
-
-  lodash.assign@4.2.0: {}
-
-  lodash.memoize@4.1.2: {}
 
   tsx@4.23.15:
     dependencies:
