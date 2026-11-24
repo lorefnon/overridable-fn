@@ -73,8 +73,26 @@ const _fn = <TArgs extends any[], TRet>(
 
 export const fn = assign(_fn, {
     memo: <TArgs extends any[], TRet>(defaultImpl: FnImpl<TArgs, TRet>): MemoizedWrappedFnImpl<TArgs, TRet> => {
-        const memoized = memoize(defaultImpl) 
-        return Object.defineProperty(fn(memoized), "cache", {
+        let memoized = memoize(defaultImpl);
+        const wrapped = fn(memoized);
+        // Overriding implementations are memoized too, each with its own cache.
+        // Restoring brings back the previous implementation along with its cache.
+        const baseOverride = wrapped.override;
+        const override: typeof wrapped.override = (provideImpl) => {
+            const prevMemoized = memoized;
+            const { restore } = baseOverride((curImpl) => {
+                memoized = memoize(provideImpl(curImpl));
+                return memoized;
+            });
+            return {
+                restore: () => {
+                    memoized = prevMemoized;
+                    restore();
+                }
+            };
+        };
+        wrapped.override = override;
+        return Object.defineProperty(wrapped, "cache", {
             get() {
                 return memoized.cache;
             },

@@ -56,3 +56,58 @@ test("Memoized cache can be replaced", () => {
     double(1);
     assert.strictEqual(execCount, 2);
 })
+
+
+test("Overrides of memoized functions are memoized", () => {
+    let origCount = 0;
+    let overrideCount = 0;
+    const double = fn.memo((a: number) => {
+        origCount += 1;
+        return a * 2;
+    });
+    assert.strictEqual(double(2), 4);
+    assert.strictEqual(origCount, 1);
+
+    const { restore } = double.override(() => (a: number) => {
+        overrideCount += 1;
+        return a * 3;
+    });
+    assert.strictEqual(double(2), 6);
+    assert.strictEqual(double(2), 6);
+    assert.strictEqual(overrideCount, 1);
+    assert.strictEqual(double.cache.has(2), true);
+    assert.strictEqual(double.cache.get(2), 6);
+
+    restore();
+    assert.strictEqual(double(2), 4);
+    assert.strictEqual(origCount, 1);
+    assert.strictEqual(overrideCount, 1);
+})
+
+
+test("Nested overrides of memoized functions keep separate caches", () => {
+    let origCount = 0;
+    let overrideCount = 0;
+    const inc = fn.memo((a: number) => {
+        origCount += 1;
+        return a + 1;
+    });
+    inc(1);
+    const first = inc.override((cur) => (a: number) => {
+        overrideCount += 1;
+        return cur(a) * 10;
+    });
+    assert.strictEqual(inc(1), 20);
+    assert.strictEqual(inc(1), 20);
+    assert.strictEqual(overrideCount, 1);
+    // previous impl is memoized and reuses its cached result
+    assert.strictEqual(origCount, 1);
+
+    const second = inc.override(() => (a: number) => a + 100);
+    assert.strictEqual(inc(1), 101);
+    second.restore();
+    assert.strictEqual(inc(1), 20);
+    first.restore();
+    assert.strictEqual(inc(1), 2);
+    assert.strictEqual(origCount, 1);
+})
