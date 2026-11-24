@@ -74,13 +74,15 @@ const _fn = <TArgs extends any[], TRet>(
 export const fn = assign(_fn, {
     memo: <TArgs extends any[], TRet>(defaultImpl: FnImpl<TArgs, TRet>): MemoizedWrappedFnImpl<TArgs, TRet> => {
         const memoized = memoize(defaultImpl) 
-        return assign(fn(memoized), {
-            get cache() {
+        return Object.defineProperty(fn(memoized), "cache", {
+            get() {
                 return memoized.cache;
             },
-            set cache(cache: MapCache) {
+            set(cache: MapCache) {
                 memoized.cache = cache;
-            }
-        })
+            },
+            enumerable: true,
+            configurable: true
+        }) as MemoizedWrappedFnImpl<TArgs, TRet>;
     }
 })

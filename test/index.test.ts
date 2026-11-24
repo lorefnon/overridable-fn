@@ -33,3 +33,26 @@ test("Usage with memoization", () => {
     res = computeSum(2, 1)
     assert.strictEqual(execCount, 3);
 })
+
+
+test("Memoized cache can be replaced", () => {
+    let execCount = 0;
+    const double = fn.memo((a: number) => {
+        execCount += 1;
+        return a * 2;
+    });
+    double(1);
+    double(1);
+    assert.strictEqual(execCount, 1);
+
+    const newCache = new Map();
+    double.cache = newCache;
+    assert.strictEqual(double.cache, newCache);
+    assert.strictEqual(newCache.size, 0);
+
+    double(1);
+    assert.strictEqual(execCount, 2);
+    assert.strictEqual(newCache.size, 1);
+    double(1);
+    assert.strictEqual(execCount, 2);
+})
